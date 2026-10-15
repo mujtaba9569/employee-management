@@ -1,7 +1,7 @@
-package com.assessment.backend.DTO;
+package com.assessment.backend.dto;
 
 public record EmployeeResponse(
-        Long id,
-        String name,
-        String department) {
+                Long id,
+                String name,
+                String department) {
 }

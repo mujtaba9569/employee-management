@@ -1,10 +1,10 @@
-package com.assessment.backend.Service;
+package com.assessment.backend.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.assessment.backend.Repository.EmployeeRepository;
-import com.assessment.backend.DTO.EmployeeResponse;
-import com.assessment.backend.Entity.Employee;
+import com.assessment.backend.repository.EmployeeRepository;
+import com.assessment.backend.dto.EmployeeResponse;
+import com.assessment.backend.entity.Employee;
 import java.util.List;
 
 @Service

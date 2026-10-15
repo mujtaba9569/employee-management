@@ -1,4 +1,4 @@
-package com.assessment.backend.Config;
+package com.assessment.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

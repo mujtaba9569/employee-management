@@ -1,9 +1,10 @@
-package com.assessment.backend.Service;
+package com.assessment.backend.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.assessment.backend.Entity.Department;
-import com.assessment.backend.Repository.DepartmentRepository;
+import com.assessment.backend.entity.Department;
+import com.assessment.backend.repository.DepartmentRepository;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ public class DepartmentService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "departments")
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
     }

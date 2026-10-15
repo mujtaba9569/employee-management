@@ -1,4 +1,4 @@
-package com.assessment.backend.Entity;
+package com.assessment.backend.entity;
 
 import jakarta.persistence.*;
 
