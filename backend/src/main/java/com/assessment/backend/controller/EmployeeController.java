@@ -1,12 +1,12 @@
-package com.assessment.backend.Controller;
+package com.assessment.backend.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import com.assessment.backend.DTO.EmployeeResponse;
-import com.assessment.backend.Service.EmployeeService;
+import com.assessment.backend.dto.EmployeeResponse;
+import com.assessment.backend.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api/employees")
