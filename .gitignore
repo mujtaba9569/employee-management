@@ -1,0 +1,27 @@
+
+# React / Node.js
+node_modules/
+dist/
+coverage/
+
+# Spring Boot / Maven
+target/
+*.class
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+application-local.properties
+application-local.yml
+application-local.yaml
+
+# macOS
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
