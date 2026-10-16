@@ -25,9 +25,9 @@ jobs:
           cache: maven
           cache-dependency-path: backend/pom.xml
 
-      - name: Build Spring Boot
-        working-directory: backend
-        run: mvn -B clean package -DskipTests
+-         name: Build Spring Boot
+          working-directory: backend
+          run: mvn -U -B clean package -DskipTests
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
