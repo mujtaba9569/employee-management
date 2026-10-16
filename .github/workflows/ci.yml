@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build and Deploy
 
 on:
   push:
@@ -50,16 +50,19 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Configure AWS credentials
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/employee-management'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-east-2
 
       - name: Login to Amazon ECR
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/employee-management'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push backend image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/employee-management'
         uses: docker/build-push-action@v6
         with:
           context: ./backend
@@ -67,8 +70,31 @@ jobs:
           tags: ${{ steps.login-ecr.outputs.registry }}/employee-backend:${{ github.sha }}
 
       - name: Build and push frontend image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/employee-management'
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/employee-frontend:${{ github.sha }}
+
+      - name: Connect to EKS
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/employee-management'
+        run: |
+          aws eks update-kubeconfig \
+            --region us-east-2 \
+            --name employee-management-eks
+
+      - name: Deploy to EKS
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/employee-management'
+        run: |
+          kubectl set image deployment/employee-backend \
+            backend=${{ steps.login-ecr.outputs.registry }}/employee-backend:${{ github.sha }}
+
+          kubectl set image deployment/employee-frontend \
+            frontend=${{ steps.login-ecr.outputs.registry }}/employee-frontend:${{ github.sha }}
+
+      - name: Verify deployment
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/employee-management'
+        run: |
+          kubectl rollout status deployment/employee-backend --timeout=180s
+          kubectl rollout status deployment/employee-frontend --timeout=180s
